@@ -17,6 +17,11 @@ int main() {
 				window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
 				board.createNewGrid(window.getSize());
 				break;
+			case sf::Event::MouseButtonReleased:
+				if (event.mouseButton.button == sf::Mouse::Left) {
+					board.onMouseLeftClicked(sf::Mouse::getPosition(window));
+				}
+				break;
 			}
 		}
 

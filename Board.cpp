@@ -27,3 +27,8 @@ void Board::draw(sf::RenderWindow& window) {
 		}
 	}
 }
+
+void Board::onMouseLeftClicked(sf::Vector2i mousePosition) {
+	sf::Vector2i cellPosition = mousePosition / (int) Cell::SIZE;
+	cells[cellPosition.x][cellPosition.y].changeState();
+}
