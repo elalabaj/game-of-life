@@ -2,33 +2,30 @@
 #include <random>
 
 Board::Board(sf::Vector2u windowSize) {
-	//same as std::ceil((float) windowSize.x / Cell::SIZE);
-	width = (windowSize.x + Cell::SIZE - 1) / Cell::SIZE;
-	//same as std::ceil((float) windowSize.y / Cell::SIZE);
-	height = (windowSize.y + Cell::SIZE - 1) / Cell::SIZE;
+	width = (windowSize.x + Cell::SIZE - 1) / Cell::SIZE + 2;
+	height = (windowSize.y + Cell::SIZE - 1) / Cell::SIZE + 2;
 
 	cells.clear();
 	for (int i = 0; i < width; i++) {
 		cells.push_back(std::vector<Cell>());
 		for (int j = 0; j < height; j++) {
-			Cell cell(sf::Vector2u(i, j), false);
+			Cell cell(sf::Vector2i(i - 1, j - 1), false);
 			cells[i].push_back(cell);
 		}
 	}
 }
 
 void Board::draw(sf::RenderWindow& window) {
-	for (int i = 0; i < width; i++) {
-		for (int j = 0; j < height; j++) {
-			//window.draw(cells[i][j]);
-			cells[i][j].draw(window);
+	for (int i = 1; i < width - 1; i++) {
+		for (int j = 1; j < height - 1; j++) {
+			window.draw(cells[i][j]);
 		}
 	}
 }
 
 void Board::onMouseLeftClicked(sf::Vector2i mousePosition) {
 	sf::Vector2i cellPosition = mousePosition / (int) Cell::SIZE;
-	cells[cellPosition.x][cellPosition.y].changeState();
+	cells[cellPosition.x + 1][cellPosition.y + 1].changeState();
 }
 
 void Board::nextTurn() {

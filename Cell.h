@@ -15,7 +15,7 @@ private:
 	bool nextState;
 
 public:
-	Cell(sf::Vector2u gridPosition, bool state);
+	Cell(sf::Vector2i gridPosition, bool state);
 
 	bool getState() { return state; }
 	bool getNextState() { return nextState; }
@@ -23,5 +23,4 @@ public:
 	void setNextState(bool nextState);
 	void setState(bool state);
 	void changeState();
-	void draw(sf::RenderWindow& window);
 };
