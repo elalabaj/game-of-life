@@ -1,7 +1,10 @@
 #include <SFML/Graphics.hpp>
+#include "Board.h"
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Game of Life");
+
+	Board board(window.getSize());
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -11,6 +14,10 @@ int main() {
 				break;
 			}
 		}
+
+		window.clear();
+		board.draw(window);
+		window.display();
 	}
 
 	return 0;
