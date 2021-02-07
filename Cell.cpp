@@ -5,7 +5,7 @@ Cell::Cell(sf::Vector2u gridPosition, bool state) {
 	setSize(sf::Vector2f(SIZE, SIZE));
 	setOutlineThickness(outlineThickness);
 	setOutlineColor(outlineColor);
-	setState(state);
+	setState(state);	
 }
 
 void Cell::setState(bool state) {

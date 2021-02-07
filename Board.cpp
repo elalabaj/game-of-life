@@ -2,10 +2,6 @@
 #include <random>
 
 Board::Board(sf::Vector2u windowSize) {
-	createNewGrid(windowSize);
-}
-
-void Board::createNewGrid(sf::Vector2u windowSize) {
 	//same as std::ceil((float) windowSize.x / Cell::SIZE);
 	width = (windowSize.x + Cell::SIZE - 1) / Cell::SIZE;
 	//same as std::ceil((float) windowSize.y / Cell::SIZE);

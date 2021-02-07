@@ -4,7 +4,7 @@
 int main() {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Game of Life");
 
-	Board board(window.getSize());
+	Board board(sf::Vector2u(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height));
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -15,9 +15,8 @@ int main() {
 				break;
 			case sf::Event::Resized:
 				window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
-				board.createNewGrid(window.getSize());
 				break;
-			case sf::Event::MouseButtonReleased:
+			case sf::Event::MouseButtonPressed:
 				if (event.mouseButton.button == sf::Mouse::Left) {
 					board.onMouseLeftClicked(sf::Mouse::getPosition(window));
 				}
