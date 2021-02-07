@@ -12,6 +12,7 @@ public:
 	Simulation(Board& board, float switchTime);
 
 	bool isPlaying() { return playing; }
+	void changeSwitchTime(float delta) { switchTime += delta; }
 
 	void update(float deltaTime);
 	void changeIsPlaying();

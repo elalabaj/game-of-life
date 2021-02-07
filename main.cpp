@@ -32,6 +32,8 @@ int main() {
 				if (event.key.code == sf::Keyboard::Space) {
 					simulation.changeIsPlaying();
 				}
+			case sf::Event::MouseWheelScrolled:
+				simulation.changeSwitchTime(event.mouseWheelScroll.delta * -50);
 			}
 		}
 
