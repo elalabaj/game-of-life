@@ -14,5 +14,9 @@ public:
 
 	void draw(sf::RenderWindow& window);
 	void onMouseLeftClicked(sf::Vector2i mousePositions);
+	void nextTurn();
+
+private:
+	bool checkNextState(int x, int y);
 };
 

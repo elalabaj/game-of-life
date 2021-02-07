@@ -12,10 +12,16 @@ public:
 
 private:
 	bool state; //true - alive, false - dead
+	bool nextState;
 
 public:
 	Cell(sf::Vector2u gridPosition, bool state);
 
+	bool getState() { return state; }
+	bool getNextState() { return nextState; }
+
+	void setNextState(bool nextState);
 	void setState(bool state);
 	void changeState();
+	void draw(sf::RenderWindow& window);
 };
