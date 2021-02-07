@@ -28,3 +28,7 @@ void Board::onMouseLeftClicked(sf::Vector2i mousePosition) {
 	sf::Vector2i cellPosition = mousePosition / (int) Cell::SIZE;
 	cells[cellPosition.x][cellPosition.y].changeState();
 }
+
+void Board::nextTurn() {
+	printf("next turn\n");
+}

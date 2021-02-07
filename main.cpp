@@ -1,12 +1,19 @@
 #include <SFML/Graphics.hpp>
 #include "Board.h"
+#include "Simulation.h"
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Game of Life");
 
 	Board board(sf::Vector2u(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height));
+	Simulation simulation(board, 1000);
+
+	float deltaTime;
+	sf::Clock clock;
 
 	while (window.isOpen()) {
+		deltaTime = clock.restart().asMilliseconds();
+
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			switch (event.type) {
@@ -23,6 +30,8 @@ int main() {
 				break;
 			}
 		}
+
+		simulation.update(deltaTime);
 
 		window.clear();
 		board.draw(window);
