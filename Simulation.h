@@ -6,7 +6,7 @@ class Simulation {
 	bool playing;
 	float totalTime;
 	float switchTime;
-	Board board;
+	Board& board;
 
 public:
 	Simulation(Board& board, float switchTime);

@@ -8,6 +8,10 @@ Cell::Cell(sf::Vector2u gridPosition, bool state) {
 	setState(state);	
 }
 
+void Cell::setNextState(bool nextState) {
+	this->nextState = nextState;
+}
+
 void Cell::setState(bool state) {
 	this->state = state;
 	if (state) setFillColor(aliveColor);
@@ -16,4 +20,8 @@ void Cell::setState(bool state) {
 
 void Cell::changeState() {
 	setState(!state);
+}
+
+void Cell::draw(sf::RenderWindow& window) {
+	window.draw(*this);
 }
