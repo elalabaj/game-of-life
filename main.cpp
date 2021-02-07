@@ -14,6 +14,7 @@ int main() {
 				window.close();
 				break;
 			case sf::Event::Resized:
+				window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
 				board.createNewGrid(window.getSize());
 				break;
 			}
