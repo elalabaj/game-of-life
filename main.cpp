@@ -24,10 +24,16 @@ int main() {
 				window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
 				break;
 			case sf::Event::MouseButtonPressed:
-				if (event.mouseButton.button == sf::Mouse::Left) {
+				if (event.mouseButton.button == sf::Mouse::Left && !simulation.isPlaying()) {
 					board.onMouseLeftClicked(sf::Mouse::getPosition(window));
 				}
 				break;
+			case sf::Event::KeyPressed:
+				if (event.key.code == sf::Keyboard::Space) {
+					simulation.changeIsPlaying();
+				}
+			case sf::Event::MouseWheelScrolled:
+				simulation.changeSwitchTime(event.mouseWheelScroll.delta * -50);
 			}
 		}
 
