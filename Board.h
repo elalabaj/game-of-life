@@ -12,7 +12,7 @@ class Board {
 public:
 	Board(sf::Vector2u windowSize);
 
-	void createNewGrid(sf::Vector2u windowSize);
 	void draw(sf::RenderWindow& window);
+	void onMouseLeftClicked(sf::Vector2i mousePositions);
 };
 

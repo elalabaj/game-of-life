@@ -2,10 +2,6 @@
 #include <random>
 
 Board::Board(sf::Vector2u windowSize) {
-	createNewGrid(windowSize);
-}
-
-void Board::createNewGrid(sf::Vector2u windowSize) {
 	//same as std::ceil((float) windowSize.x / Cell::SIZE);
 	width = (windowSize.x + Cell::SIZE - 1) / Cell::SIZE;
 	//same as std::ceil((float) windowSize.y / Cell::SIZE);
@@ -26,4 +22,9 @@ void Board::draw(sf::RenderWindow& window) {
 			window.draw(cells[i][j]);
 		}
 	}
+}
+
+void Board::onMouseLeftClicked(sf::Vector2i mousePosition) {
+	sf::Vector2i cellPosition = mousePosition / (int) Cell::SIZE;
+	cells[cellPosition.x][cellPosition.y].changeState();
 }

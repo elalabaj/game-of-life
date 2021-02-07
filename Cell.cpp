@@ -1,15 +1,19 @@
 #include "Cell.h"
 
-Cell::Cell(sf::Vector2u gridPosition, bool alive) {
-	this->alive = alive;
+Cell::Cell(sf::Vector2u gridPosition, bool state) {
 	setPosition(gridPosition.x * SIZE, gridPosition.y * SIZE);
 	setSize(sf::Vector2f(SIZE, SIZE));
 	setOutlineThickness(outlineThickness);
 	setOutlineColor(outlineColor);
-	setColor();
+	setState(state);	
 }
 
-void Cell::setColor() {
-	if (alive) setFillColor(aliveColor);
+void Cell::setState(bool state) {
+	this->state = state;
+	if (state) setFillColor(aliveColor);
 	else setFillColor(deadColor);
+}
+
+void Cell::changeState() {
+	setState(!state);
 }

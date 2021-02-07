@@ -11,10 +11,11 @@ public:
 	const float outlineThickness = -0.5f;
 
 private:
-	bool alive;
+	bool state; //true - alive, false - dead
 
 public:
-	Cell(sf::Vector2u gridPosition, bool alive);
+	Cell(sf::Vector2u gridPosition, bool state);
 
-	void setColor();
+	void setState(bool state);
+	void changeState();
 };
