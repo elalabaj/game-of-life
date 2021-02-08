@@ -14,6 +14,8 @@ public:
 
 	void draw(sf::RenderWindow& window);
 	void onMouseLeftClicked(sf::Vector2i mousePositions);
+	void randomConfiguration();
+	void reset();
 	void nextTurn();
 
 private:

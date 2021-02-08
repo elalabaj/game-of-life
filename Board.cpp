@@ -1,7 +1,10 @@
 #include "Board.h"
 #include <random>
+#include <ctime>
 
 Board::Board(sf::Vector2u windowSize) {
+	srand(time(NULL));
+
 	width = (windowSize.x + Cell::SIZE - 1) / Cell::SIZE + 2;
 	height = (windowSize.y + Cell::SIZE - 1) / Cell::SIZE + 2;
 
@@ -26,6 +29,22 @@ void Board::draw(sf::RenderWindow& window) {
 void Board::onMouseLeftClicked(sf::Vector2i mousePosition) {
 	sf::Vector2i cellPosition = mousePosition / (int) Cell::SIZE;
 	cells[cellPosition.x + 1][cellPosition.y + 1].changeState();
+}
+
+void Board::randomConfiguration() {
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+			cells[i][j].setState(rand() % 2);
+		}
+	}
+}
+
+void Board::reset() {
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+			cells[i][j].setState(false);
+		}
+	}
 }
 
 void Board::nextTurn() {
