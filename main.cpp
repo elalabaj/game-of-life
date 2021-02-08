@@ -6,7 +6,7 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Game of Life");
 
 	Board board(sf::Vector2u(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height));
-	Simulation simulation(board, 1000);
+	Simulation simulation(board, 0);
 
 	float deltaTime;
 	sf::Clock clock;
@@ -32,6 +32,7 @@ int main() {
 				if (event.key.code == sf::Keyboard::Space) {
 					simulation.changeIsPlaying();
 				}
+				break;
 			case sf::Event::MouseWheelScrolled:
 				simulation.changeSwitchTime(event.mouseWheelScroll.delta * -50);
 			}
