@@ -32,6 +32,15 @@ int main() {
 				if (event.key.code == sf::Keyboard::Space) {
 					simulation.changeIsPlaying();
 				}
+				if (event.key.code == sf::Keyboard::R && !simulation.isPlaying()) {
+					board.randomConfiguration();
+				}
+				if (event.key.code == sf::Keyboard::Delete) {
+					if (simulation.isPlaying()) {
+						simulation.changeIsPlaying();
+					}
+					board.reset();
+				}
 				break;
 			case sf::Event::MouseWheelScrolled:
 				simulation.changeSwitchTime(event.mouseWheelScroll.delta * -50);
