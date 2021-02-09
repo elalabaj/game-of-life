@@ -4,7 +4,7 @@
 
 const unsigned int BOARD_WIDTH = sf::VideoMode::getDesktopMode().width;
 const unsigned int BOARD_HEIGHT = sf::VideoMode::getDesktopMode().height;
-const unsigned int CELL_SIZE = 10;
+const unsigned int CELL_SIZE = 7;
 
 void zoomViewAt(sf::Vector2i pixel, sf::View& view, sf::RenderWindow& window, float zoom) {
 	const sf::Vector2f beforeCoord{ window.mapPixelToCoords(pixel) };

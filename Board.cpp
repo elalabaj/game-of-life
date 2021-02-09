@@ -49,11 +49,23 @@ void Board::reset() {
 }
 
 void Board::nextTurn() {
-	for (int i = 0; i < width; i++) {
-		for (int j = 0; j < height; j++) {
-			next[i][j] = checkNextState(i, j);
-		} 
+	auto f = [this](int a, int b) {
+		for (int i = a; i < b; i++) {
+			for (int j = 0; j < height; j++) {
+				next[i][j] = checkNextState(i, j);
+			}
+		}
+	};
+
+	for (int i = 0; i < THREAD_COUNT - 1; i++) {
+		threads[i] = std::thread(f, width / THREAD_COUNT * i, width / THREAD_COUNT * (i + 1));
+	} 
+	threads[THREAD_COUNT - 1] = std::thread(f, width / THREAD_COUNT * (THREAD_COUNT - 1), width);
+
+	for (int i = 0; i < THREAD_COUNT; i++) {
+		threads[i].join();
 	}
+
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
 			setState(i, j, next[i][j]);

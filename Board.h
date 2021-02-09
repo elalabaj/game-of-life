@@ -2,9 +2,12 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <thread>
 #include "TileMap.h"
 
 class Board {
+	static const int THREAD_COUNT = 4;
+	std::thread threads[THREAD_COUNT];
 	int width;
 	int height;
 	sf::Vector2u cellSize;
