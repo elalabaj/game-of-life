@@ -4,17 +4,16 @@
 
 class Simulation {
 	bool playing;
-	float totalTime;
-	float switchTime;
+	int totalTime;
+	int switchTime;
 	Board& board;
 
 public:
-	Simulation(Board& board, float switchTime);
+	Simulation(Board& board, int switchTime);
 
 	bool isPlaying() { return playing; }
-	void changeSwitchTime(float delta) { switchTime = std::max(0.f, switchTime + delta); }
 
-	void update(float deltaTime);
+	void update(int deltaTime);
 	void changeIsPlaying();
 };
 

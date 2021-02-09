@@ -24,10 +24,12 @@ void Board::draw(sf::RenderWindow& window) {
 	window.draw(map);
 }
 
-void Board::onMouseLeftClicked(sf::Vector2i mousePosition) {
-	int x = mousePosition.x / cellSize.x + 1;
-	int y = mousePosition.y / cellSize.y + 1;
-	setState(x, y, !cells[x][y]);
+void Board::onMouseLeftClicked(sf::Vector2f coords) {
+	int x = (int) coords.x / cellSize.x + 1;
+	int y = (int) coords.y / cellSize.y + 1;
+	if (x >= 0 && x < width && y >= 0 && y < height) {
+		setState(x, y, !cells[x][y]);
+	}
 }
 
 void Board::randomConfiguration() {

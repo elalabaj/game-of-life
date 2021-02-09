@@ -16,7 +16,7 @@ public:
 	Board(sf::Vector2u windowSize, sf::Vector2u cellSize);
 
 	void draw(sf::RenderWindow& window);
-	void onMouseLeftClicked(sf::Vector2i mousePositions);
+	void onMouseLeftClicked(sf::Vector2f coords);
 	void randomConfiguration();
 	void reset();
 	void nextTurn();

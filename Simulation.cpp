@@ -1,18 +1,23 @@
 #include "Simulation.h"
 #include <stdio.h>
 
-Simulation::Simulation(Board& board, float switchTime): board(board) {
+Simulation::Simulation(Board& board, int switchTime): board(board) {
     playing = false;
     totalTime = 0;
     this->switchTime = switchTime;
 }
 
-void Simulation::update(float deltaTime) {
+void Simulation::update(int deltaTime) {
     if (playing) {
-        totalTime += deltaTime;
-        if (totalTime >= switchTime) {
-            totalTime -= switchTime;
+        if (deltaTime >= switchTime) {
             board.nextTurn();
+        }
+        else {
+            totalTime += deltaTime;
+            if (totalTime >= switchTime) {
+                totalTime -= switchTime;
+                board.nextTurn();
+            }
         }
     }
 }
