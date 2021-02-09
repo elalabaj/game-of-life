@@ -5,7 +5,7 @@
 int main() {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Game of Life");
 
-	Board board(sf::Vector2u(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height));
+	Board board(sf::Vector2u(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), sf::Vector2u(5, 5));
 	Simulation simulation(board, 0);
 
 	float deltaTime;

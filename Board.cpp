@@ -2,39 +2,38 @@
 #include <random>
 #include <ctime>
 
-Board::Board(sf::Vector2u windowSize) {
+Board::Board(sf::Vector2u windowSize, sf::Vector2u cellSize) {
 	srand(time(NULL));
 
-	width = (windowSize.x + Cell::SIZE - 1) / Cell::SIZE + 2;
-	height = (windowSize.y + Cell::SIZE - 1) / Cell::SIZE + 2;
+	this->cellSize = cellSize;
 
-	cells.clear();
+	width = (windowSize.x + cellSize.x - 1) / cellSize.x + 2;
+	height = (windowSize.y + cellSize.y - 1) / cellSize.y + 2;
+
+	cells.resize(width);
+	next.resize(width);
 	for (int i = 0; i < width; i++) {
-		cells.push_back(std::vector<Cell>());
-		for (int j = 0; j < height; j++) {
-			Cell cell(sf::Vector2i(i - 1, j - 1), false);
-			cells[i].push_back(cell);
-		}
+		cells[i].resize(height);
+		next[i].resize(height);
 	}
+
+	map.load(cellSize, width - 2, height - 2);
 }
 
 void Board::draw(sf::RenderWindow& window) {
-	for (int i = 1; i < width - 1; i++) {
-		for (int j = 1; j < height - 1; j++) {
-			window.draw(cells[i][j]);
-		}
-	}
+	window.draw(map);
 }
 
 void Board::onMouseLeftClicked(sf::Vector2i mousePosition) {
-	sf::Vector2i cellPosition = mousePosition / (int) Cell::SIZE;
-	cells[cellPosition.x + 1][cellPosition.y + 1].changeState();
+	int x = mousePosition.x / cellSize.x + 1;
+	int y = mousePosition.y / cellSize.y + 1;
+	setState(x, y, !cells[x][y]);
 }
 
 void Board::randomConfiguration() {
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
-			cells[i][j].setState(rand() % 2);
+			setState(i, j, rand() % 2);
 		}
 	}
 }
@@ -42,7 +41,7 @@ void Board::randomConfiguration() {
 void Board::reset() {
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
-			cells[i][j].setState(false);
+			setState(i, j, false);
 		}
 	}
 }
@@ -50,13 +49,20 @@ void Board::reset() {
 void Board::nextTurn() {
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
-			cells[i][j].setNextState(checkNextState(i, j));
+			next[i][j] = checkNextState(i, j);
 		} 
 	}
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
-			cells[i][j].setState(cells[i][j].getNextState());
+			setState(i, j, next[i][j]);
 		}
+	}
+}
+
+void Board::setState(int x, int y, bool state) {
+	cells[x][y] = state;
+	if (x > 0 && x < width - 1 && y > 0 && y < height - 1) {
+		map.setColor(x - 1, y - 1, cells[x][y] ? sf::Color::White : sf::Color::Black);
 	}
 }
 
@@ -70,11 +76,11 @@ bool Board::checkNextState(int x, int y) {
 			int j = y + dy;
 			if (i < 0 || i >= width || j < 0 || j >= height) continue;
 
-			if (cells[i][j].getState()) aliveNeighbours++;
+			if (cells[i][j]) aliveNeighbours++;
 		}
 	}
 
-	if (cells[x][y].getState()) {
+	if (cells[x][y]) {
 		if (aliveNeighbours == 2 || aliveNeighbours == 3) {
 			return true;
 		}
